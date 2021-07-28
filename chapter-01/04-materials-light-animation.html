@@ -6,6 +6,7 @@
     <title>Example 01.04 - Materials, light and animation</title>
     <script type="text/javascript" src="../libs/three.js"></script>
 
+    <!-- 帧数检测辅助库 -->
     <script type="text/javascript" src="../libs/stats.js"></script>
     <style>
         body {
@@ -107,25 +108,37 @@
 
         // call the render function
         var step = 0;
+
+        // 启动动画
         renderScene();
 
         function renderScene() {
+
+            // 更新帧数统计模块
             stats.update();
+
             // rotate the cube around its axes
+            // 立方体绕轴旋转
             cube.rotation.x += 0.02;
             cube.rotation.y += 0.02;
             cube.rotation.z += 0.02;
 
             // bounce the sphere up and down
             step += 0.04;
+
+            // x 轴方向上来回运动
             sphere.position.x = 20 + ( 10 * (Math.cos(step)));
+
+            // y 轴方向上正数运动，半圆，时间是上面的一半，实现反复左右横跳
             sphere.position.y = 2 + ( 10 * Math.abs(Math.sin(step)));
 
             // render using requestAnimationFrame
+            // 负责绘制场景的回调函数，动画持续运行
             requestAnimationFrame(renderScene);
             renderer.render(scene, camera);
         }
 
+        // 帧数统计模块
         function initStats() {
 
             var stats = new Stats();

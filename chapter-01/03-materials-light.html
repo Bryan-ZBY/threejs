@@ -35,15 +35,19 @@
 
         // create a render and set the size
         var renderer = new THREE.WebGLRenderer();
-
+        
         renderer.setClearColor(new THREE.Color(0xEEEEEE, 1.0));
         renderer.setSize(window.innerWidth, window.innerHeight);
+
+        // 允许生成阴影，因为渲染阴影要花费大量的计算资源，所以默认情况下 threejs 不会生成阴影，需要手动打开
         renderer.shadowMapEnabled = true;
 
         // create the ground plane
         var planeGeometry = new THREE.PlaneGeometry(60, 20);
         var planeMaterial = new THREE.MeshLambertMaterial({color: 0xffffff});
         var plane = new THREE.Mesh(planeGeometry, planeMaterial);
+
+        // 接收并显示投影
         plane.receiveShadow = true;
 
         // rotate and position the plane
@@ -59,6 +63,8 @@
         var cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
         var cubeMaterial = new THREE.MeshLambertMaterial({color: 0xff0000});
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+        // 此属性用于将阴影投射到地面上
         cube.castShadow = true;
 
         // position the cube
@@ -86,11 +92,18 @@
         camera.position.x = -30;
         camera.position.y = 40;
         camera.position.z = 30;
+
+        // 相机指向场景中心
         camera.lookAt(scene.position);
 
         // add spotlight for the shadows
+        // 创建一个光源，用于表现阴影关系，不同的材质对光源的反应不同
+        // 由 MeshBasicMaterial 创建的基础材质，不会对场景中的光源产生反应，只会以指定的颜色渲染物体
         var spotLight = new THREE.SpotLight(0xffffff);
+        // 设置光源位置
         spotLight.position.set(-40, 60, -10);
+
+        // 允许此光源产生阴影
         spotLight.castShadow = true;
         scene.add(spotLight);
 

@@ -5,7 +5,11 @@
 <head>
     <title>Example 01.05 - Control gui</title>
     <script type="text/javascript" src="../libs/three.js"></script>
+
+    <!-- 帧数检测 -->
     <script type="text/javascript" src="../libs/stats.js"></script>
+
+    <!-- 调整变量 -->
     <script type="text/javascript" src="../libs/dat.gui.js"></script>
     <style>
         body {
@@ -108,11 +112,13 @@
         // call the render function
         var step = 0;
 
+        // 设置需要 gui 调整的属性 初始值
         var controls = new function () {
             this.rotationSpeed = 0.02;
             this.bouncingSpeed = 0.03;
         };
 
+        // 调整参数，设置变化阈值
         var gui = new dat.GUI();
         gui.add(controls, 'rotationSpeed', 0, 0.5);
         gui.add(controls, 'bouncingSpeed', 0, 0.5);
@@ -136,6 +142,7 @@
             renderer.render(scene, camera);
         }
 
+        // 帧数检测
         function initStats() {
 
             var stats = new Stats();

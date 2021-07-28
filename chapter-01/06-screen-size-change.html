@@ -156,9 +156,15 @@
             return stats;
         }
     }
+
+    // 更新摄像机和渲染器
     function onResize() {
+
+        // 更新屏幕的长宽比
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
+
+        // 更新渲染器的尺寸
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
@@ -166,6 +172,7 @@
     window.onload = init;
 
     // listen to the resize events
+    // 屏幕大小变化事件监听器
     window.addEventListener('resize', onResize, false);
 
 </script>
